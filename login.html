@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BloodBond</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #c20c0c;
+            --dark-red: #8a0a0a;
+            --light-red: #ff4d4d;
+            --light-bg: #fff5f5;
+            --text-dark: #333;
+            --text-light: #666;
+            --white: #ffffff;
+            --border-light: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 28px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+        
+        .btn-register {
+            background-color: var(--white);
+            color: var(--primary-red);
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-register:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Login Section */
+        .login-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 0;
+        }
+        
+        .login-container {
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-image {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: var(--white);
+        }
+        
+        .login-content {
+            flex: 1;
+            padding: 50px;
+        }
+        
+        .login-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .login-image h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .login-image p {
+            text-align: center;
+            opacity: 0.9;
+        }
+        
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .login-header h2 {
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        
+        .login-header p {
+            color: var(--text-light);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-red);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(194, 12, 12, 0.1);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .remember-me input {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .forgot-password {
+            color: var(--primary-red);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .btn-login-submit {
+            background-color: var(--primary-red);
+            color: var(--white);
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        
+        .btn-login-submit:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .login-divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+        
+        .login-divider:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: var(--border-light);
+        }
+        
+        .login-divider span {
+            background-color: var(--white);
+            padding: 0 15px;
+            color: var(--text-light);
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .btn-social {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            background: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-google {
+            color: #DB4437;
+        }
+        
+        .btn-facebook {
+            color: #4267B2;
+        }
+        
+        .btn-social:hover {
+            background-color: var(--light-bg);
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 25px;
+        }
+        
+        .register-link a {
+            color: var(--primary-red);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Role Selection */
+        .role-selection {
+            margin-top: 30px;
+        }
+        
+        .role-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .role-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .role-option {
+            position: relative;
+        }
+        
+        .role-option input {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .role-label-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid var(--border-light);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .role-option input:checked + .role-label-box {
+            border-color: var(--primary-red);
+            background-color: var(--light-bg);
+        }
+        
+        .role-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--primary-red);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-red);
+            color: var(--white);
+            padding: 40px 0 20px;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--light-red);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-red);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .login-container {
+                flex-direction: column;
+            }
+            
+            .login-image {
+                padding: 30px;
+            }
+            
+            .login-content {
+                padding: 30px;
+            }
+            
+            .role-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-login {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-tint"></i>
+                    <h1>BloodBond</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="eligibility.html">Eligibility</a></li>
+                        <li><a href="find-blood.html">Find Blood</a></li>
+                        <li><a href="camps.html">Camps</a></li>
+                        <li><a href="credits.html">Credits</a></li>
+                        <li><a href="certificate.html">Certificate</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-login active">Login</a>
+                    <a href="register.html" class="btn btn-register">Register</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Section -->
+    <section class="login-section">
+        <div class="login-container">
+            <div class="login-image">
+                <div class="login-image-content">
+                    <div class="login-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h2>Welcome Back to BloodBond</h2>
+                    <p>Join our mission to save lives through blood donation. Your login helps us connect donors with those in need.</p>
+                </div>
+            </div>
+            <div class="login-content">
+                <div class="login-form">
+                    <div class="login-header">
+                        <h2>Login to Your Account</h2>
+                        <p>Enter your credentials to access your dashboard</p>
+                    </div>
+                    
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="password-container">
+                                <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                                <button type="button" class="toggle-password" id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-options">
+                            <div class="remember-me">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">Remember me</label>
+                            </div>
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+                        
+                        <div class="role-selection">
+                            <label class="role-label">I am a:</label>
+                            <div class="role-options">
+                                <div class="role-option">
+                                    <input type="radio" id="donor" name="role" value="donor" checked>
+                                    <label for="donor" class="role-label-box">
+                                        <div class="role-icon">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <span>Donor</span>
+                                    </label>
+                                </div>
+                                <div class="role-option">
+                                    <input type="radio" id="receiver" name="role" value="receiver">
+                                    <label for="receiver" class="role-label-box">
+                                        <div class="role-icon">
+                                            <i class="fas fa-hand-holding-heart"></i>
+                                        </div>
+                                        <span>Receiver</span>
+                                    </label>
+                                </div>
+                                <div class="role-option">
+                                    <input type="radio" id="doctor" name="role" value="doctor">
+                                    <label for="doctor" class="role-label-box">
+                                        <div class="role-icon">
+                                            <i class="fas fa-user-md"></i>
+                                        </div>
+                                        <span>Doctor</span>
+                                    </label>
+                                </div>
+                                <div class="role-option">
+                                    <input type="radio" id="hospital" name="role" value="hospital">
+                                    <label for="hospital" class="role-label-box">
+                                        <div class="role-icon">
+                                            <i class="fas fa-hospital"></i>
+                                        </div>
+                                        <span>Hospital</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-login-submit">Login to Account</button>
+                    </form>
+                    
+                    <div class="login-divider">
+                        <span>Or continue with</span>
+                    </div>
+                    
+                    <div class="social-login">
+                        <button class="btn-social btn-google">
+                            <i class="fab fa-google"></i>
+                            Google
+                        </button>
+                        <button class="btn-social btn-facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            Facebook
+                        </button>
+                    </div>
+                    
+                    <div class="register-link">
+                        <p>Don't have an account? <a href="register.html">Create an account</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BloodBond</h3>
+                    <p>Connecting donors, hospitals, and recipients to ensure no one dies due to lack of blood.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="eligibility.html">Eligibility Check</a></li>
+                        <li><a href="find-blood.html">Find Blood</a></li>
+                        <li><a href="camps.html">Donation Camps</a></li>
+                        <li><a href="credits.html">Blood Credits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Donation Process</a></li>
+                        <li><a href="#">Blood Types</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@bloodbond.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BloodBond. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+
+        // Form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const role = document.querySelector('input[name="role"]:checked').value;
+            
+            if (!email || !password) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Simple validation
+            if (!validateEmail(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Simulate login process
+            alert(`Logging in as ${role}... Redirecting to dashboard.`);
+            
+            // In a real application, this would redirect to the appropriate dashboard
+            setTimeout(() => {
+                switch(role) {
+                    case 'donor':
+                        window.location.href = 'donor-dashboard.html';
+                        break;
+                    case 'receiver':
+                        window.location.href = 'receiver-dashboard.html';
+                        break;
+                    case 'doctor':
+                        window.location.href = 'doctor-dashboard.html';
+                        break;
+                    case 'hospital':
+                        window.location.href = 'hospital-dashboard.html';
+                        break;
+                }
+            }, 1000);
+        });
+
+        // Email validation function
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Social login buttons
+        document.querySelectorAll('.btn-social').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const provider = this.classList.contains('btn-google') ? 'Google' : 'Facebook';
+                alert(`Redirecting to ${provider} authentication...`);
+                // In real application, this would redirect to OAuth flow
+            });
+        });
+    </script>
+</body>
+</html>

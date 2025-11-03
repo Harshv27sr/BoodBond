@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate - BloodBond</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        :root {
+            --primary-red: #c20c0c;
+            --dark-red: #8a0a0a;
+            --light-red: #ff4d4d;
+            --light-bg: #fff5f5;
+            --text-dark: #333;
+            --text-light: #666;
+            --white: #ffffff;
+            --border-light: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 28px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+        
+        .btn-register {
+            background-color: var(--white);
+            color: var(--primary-red);
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-register:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-red);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-red);
+            margin: 10px auto;
+        }
+        
+        /* Certificate Section */
+        .certificate-section {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 60px;
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .scanner-container {
+            flex: 1;
+            background-color: #f9f9f9;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .scanner-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #e0e0e0;
+            border: 2px dashed #b0b0b0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        
+        .scanner-placeholder i {
+            font-size: 50px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        
+        .certificate-preview {
+            flex: 1;
+            padding: 30px;
+            background: linear-gradient(135deg, #fff5f5, #ffe6e6);
+            border-left: 1px solid var(--border-light);
+        }
+        
+        /* Certificate Form */
+        .certificate-form {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .btn-submit {
+            background-color: var(--primary-red);
+            color: var(--white);
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        .btn-submit:hover {
+            background-color: var(--dark-red);
+        }
+        
+        /* Certificate Design */
+        .paper {
+            width: 100%;
+            max-width: 1000px;
+            background: #fff;
+            border: 10px solid #b30000;
+            border-radius: 10px;
+            padding: 40px 60px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .cert-title {
+            color: #000;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0;
+        }
+        
+        .cert-sub {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 10px 0;
+            color: #000;
+        }
+        
+        .cert-body {
+            font-size: 1.05rem;
+            color: #222;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+        
+        /* Footer section (QR left, Issued by right) */
+        .cert-footer {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cert-footer #qrcode {
+            position: static;
+        }
+        
+        .signature {
+            font-weight: 600;
+            text-align: right;
+        }
+        
+        /* Action Buttons below certificate */
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .actions .btn {
+            width: auto;
+            padding: 10px 20px;
+        }
+        
+        /* Preview Wrap */
+        .preview-wrap {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+        
+        /* My Certificates */
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .certificate-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary-red);
+            transition: transform 0.3s ease;
+        }
+        
+        .certificate-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .certificate-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .certificate-id {
+            font-family: monospace;
+            background-color: var(--light-bg);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .certificate-date {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .certificate-details {
+            margin: 15px 0;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .detail-label {
+            font-weight: 500;
+        }
+        
+        .certificate-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .btn-cert {
+            flex: 1;
+            padding: 8px;
+            text-align: center;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .btn-view {
+            background-color: var(--primary-red);
+            color: var(--white);
+        }
+        
+        .btn-download {
+            background-color: transparent;
+            border: 1px solid var(--primary-red);
+            color: var(--primary-red);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-red);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--light-red);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-red);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .certificate-section {
+                flex-direction: column;
+            }
+            
+            .cert-footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .actions {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+            }
+            
+            .actions .btn {
+                width: 80%;
+            }
+            
+            .paper {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-tint"></i>
+                    <h1>BloodBond</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="eligibility.html">Eligibility</a></li>
+                        <li><a href="find-blood.html">Find Blood</a></li>
+                        <li><a href="camps.html">Camps</a></li>
+                        <li><a href="credits.html">Credits</a></li>
+                        <li><a href="certificate.html" class="active">Certificate</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-login">Login</a>
+                    <a href="register.html" class="btn btn-register">Register</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <h2 class="section-title">Blood Donation Certificates</h2>
+        
+        <!-- Certificate Scanner Section -->
+        <section class="certificate-section">
+            <div class="scanner-container">
+                <h3>Scan Your Certificate</h3>
+                <div class="scanner-placeholder">
+                    <i class="fas fa-camera"></i>
+                    <p>Position your certificate in frame</p>
+                </div>
+                <button class="btn btn-submit">Scan Now</button>
+            </div>
+            <div class="certificate-preview">
+                <div class="paper">
+                    <h3>Blood Donation Certificate</h3>
+                    <p>This certifies that</p>
+                    <h4>Harshvardhan</h4>
+                    <p>has voluntarily donated blood on</p>
+                    <p>October 15, 2023</p>
+                    <div class="certificate-id">
+                        BB-ID: 7X9A2B4C8D
+                    </div>
+                    <p>Thank you for your life-saving contribution!</p>
+                    <div style="margin-top: 20px;">
+                        <i class="fas fa-qrcode" style="font-size: 80px;"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certificate Generator -->
+        <section class="certificate-form">
+            <h3 class="text-center mb-4">Generate New Certificate</h3>
+            <form id="donationForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="fname" class="form-control" required placeholder="e.g. Rahul Sharma">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Date of Donation</label>
+                            <input type="date" id="donDate" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Blood Group</label>
+                            <select id="bloodGroup" class="form-control" required>
+                                <option value="">--Select--</option>
+                                <option>A+</option>
+                                <option>A-</option>
+                                <option>B+</option>
+                                <option>B-</option>
+                                <option>O+</option>
+                                <option>O-</option>
+                                <option>AB+</option>
+                                <option>AB-</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Units Donated</label>
+                            <input type="number" id="units" class="form-control" required placeholder="e.g. 1">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Credits Earned</label>
+                            <input type="number" id="credits" class="form-control" required placeholder="e.g. 25">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Organization</label>
+                            <input type="text" id="orgName" class="form-control" required placeholder="e.g. XYZ Hospital">
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" id="generateBtn" class="btn btn-submit">Generate Certificate</button>
+            </form>
+        </section>
+
+        <!-- Certificate Preview -->
+        <div class="preview-wrap" id="previewWrap">
+            <div id="certificate" class="paper">
+                <div class="cert-title">CERTIFICATE OF BLOOD DONATION</div>
+                <div class="cert-sub">This is to certify that</div>
+                <div class="name" id="p_name">[Donor Name]</div>
+                <div class="cert-body">
+                    has donated blood of group <strong id="p_bg">[BG]</strong> on
+                    <strong id="p_date">[Date]</strong>.<br>
+                    Number of units donated: <strong id="p_units">[units]</strong><br>
+                    Credits earned: <strong id="p_credits">[credits]</strong><br>
+                    Certificate ID: <strong id="p_certid">[CERT-ID]</strong><br><br>
+                    <em>Thank you for saving lives!</em>
+                </div>
+                <div class="cert-footer">
+                    <div id="qrcode"></div>
+                    <div class="signature">
+                        Issued by <span id="p_org">[Organization]</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="updateBtn" class="btn btn-submit">Update</button>
+                <button id="downloadBtn" class="btn btn-submit">Download PDF</button>
+                <button id="printBtn" class="btn btn-submit">Print</button>
+            </div>
+        </div>
+
+        <!-- My Certificates -->
+        <section class="my-certificates">
+            <h2 class="section-title">My Certificates</h2>
+            <div class="certificates-grid">
+                <div class="certificate-card">
+                    <div class="certificate-header">
+                        <div class="certificate-id">BB-CERT-7X9A2B4C8D</div>
+                        <div class="certificate-date">Oct 15, 2023</div>
+                    </div>
+                    <div class="certificate-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Blood Group:</span>
+                            <span>O+</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Units Donated:</span>
+                            <span>1</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Credits Earned:</span>
+                            <span>50</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Organization:</span>
+                            <span>City General Hospital</span>
+                        </div>
+                    </div>
+                    <div class="certificate-actions">
+                        <a href="#" class="btn-cert btn-view">View</a>
+                        <a href="#" class="btn-cert btn-download">Download</a>
+                    </div>
+                </div>
+
+                <div class="certificate-card">
+                    <div class="certificate-header">
+                        <div class="certificate-id">BB-CERT-5Y6Z7A8B9C</div>
+                        <div class="certificate-date">Aug 22, 2023</div>
+                    </div>
+                    <div class="certificate-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Blood Group:</span>
+                            <span>O+</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Units Donated:</span>
+                            <span>1</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Credits Earned:</span>
+                            <span>50</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Organization:</span>
+                            <span>Red Cross Center</span>
+                        </div>
+                    </div>
+                    <div class="certificate-actions">
+                        <a href="#" class="btn-cert btn-view">View</a>
+                        <a href="#" class="btn-cert btn-download">Download</a>
+                    </div>
+                </div>
+
+                <div class="certificate-card">
+                    <div class="certificate-header">
+                        <div class="certificate-id">BB-CERT-1D2E3F4G5H</div>
+                        <div class="certificate-date">Jun 10, 2023</div>
+                    </div>
+                    <div class="certificate-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Blood Group:</span>
+                            <span>O+</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Units Donated:</span>
+                            <span>1</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Credits Earned:</span>
+                            <span>50</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Organization:</span>
+                            <span>Community Blood Drive</span>
+                        </div>
+                    </div>
+                    <div class="certificate-actions">
+                        <a href="#" class="btn-cert btn-view">View</a>
+                        <a href="#" class="btn-cert btn-download">Download</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BloodBond</h3>
+                    <p>Connecting donors, hospitals, and recipients to ensure no one dies due to lack of blood.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="eligibility.html">Eligibility Check</a></li>
+                        <li><a href="find-blood.html">Find Blood</a></li>
+                        <li><a href="camps.html">Donation Camps</a></li>
+                        <li><a href="credits.html">Blood Credits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Donation Process</a></li>
+                        <li><a href="#">Blood Types</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@bloodbond.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BloodBond. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const $ = id => document.getElementById(id);
+            
+            // Auto set today's date
+            if ($('donDate')) {
+                $('donDate').value = new Date().toISOString().slice(0, 10);
+            }
+
+            function genCertId() {
+                const d = new Date();
+                return 'BB-CERT-' + d.getFullYear() + (d.getMonth() + 1) + d.getDate() + '-' + Math.floor(Math.random() * 90000 + 10000);
+            }
+
+            function fillCertificate() {
+                const name = $('fname').value || '[Donor Name]';
+                const date = $('donDate').value
+                    ? new Date($('donDate').value).toLocaleDateString()
+                    : '[Date]';
+                const bg = $('bloodGroup').value || '[BG]';
+                const units = $('units').value || '[units]';
+                const credits = $('credits').value || '[credits]';
+                const org = $('orgName').value || '[Organization]';
+                const cid = genCertId();
+
+                $('p_name').textContent = name;
+                $('p_date').textContent = date;
+                $('p_bg').textContent = bg;
+                $('p_units').textContent = units;
+                $('p_credits').textContent = credits;
+                $('p_org').textContent = org;
+                $('p_certid').textContent = cid;
+
+                // Encode verify page link with data
+                const verifyUrl =
+                    `verify.html?id=${encodeURIComponent(cid)}` +
+                    `&name=${encodeURIComponent(name)}` +
+                    `&bg=${encodeURIComponent(bg)}` +
+                    `&date=${encodeURIComponent(date)}` +
+                    `&units=${encodeURIComponent(units)}` +
+                    `&credits=${encodeURIComponent(credits)}` +
+                    `&org=${encodeURIComponent(org)}`;
+
+                // Generate QR code
+                const qr = $('qrcode');
+                qr.innerHTML = '';
+                new QRCode(qr, { text: window.location.origin + '/' + verifyUrl, width: 90, height: 90 });
+
+                return cid;
+            }
+
+            if ($('generateBtn')) {
+                $('generateBtn').onclick = () => {
+                    // Check form validity
+                    const form = $('donationForm');
+                    if (!form.checkValidity()) {
+                        alert("⚠️ Please fill all required fields before generating the certificate.");
+                        form.reportValidity();
+                        return;
+                    }
+
+                    // If form is valid, generate certificate
+                    fillCertificate();
+                    $('previewWrap').style.display = 'flex';
+                    window.scrollTo({ top: $('previewWrap').offsetTop, behavior: 'smooth' });
+                };
+            }
+
+            if ($('updateBtn')) {
+                $('updateBtn').onclick = () => fillCertificate();
+            }
+
+            if ($('downloadBtn')) {
+                $('downloadBtn').onclick = async () => {
+                    const cid = fillCertificate();
+                    const el = $('certificate');
+                    const canvas = await html2canvas(el, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+                    const img = canvas.toDataURL('image/png');
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('landscape', 'mm', 'a4');
+                    const width = 297;
+                    const height = (canvas.height * width) / canvas.width;
+                    pdf.addImage(img, 'PNG', 0, 0, width, height);
+                    pdf.save(`${cid}.pdf`);
+                };
+            }
+
+            if ($('printBtn')) {
+                $('printBtn').onclick = () => {
+                    fillCertificate();
+                    const html = $('certificate').outerHTML;
+                    const w = window.open('');
+                    w.document.write(`<title>Print Certificate</title>
+                <style>@page{size:A4 landscape;margin:0;}
+                body{margin:0;display:flex;justify-content:center;align-items:center;}
+                .paper{width:297mm;height:210mm;border:10px solid #b71c1c;padding:40px 60px;box-sizing:border-box;
+                font-family:Segoe UI,sans-serif;}</style>`);
+                    w.document.write(html);
+                    w.document.close();
+                    w.onload = () => w.print();
+                };
+            }
+        });
+    </script>
+</body>
+</html>

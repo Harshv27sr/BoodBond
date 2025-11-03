@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - BloodBond</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #c20c0c;
+            --dark-red: #8a0a0a;
+            --light-red: #ff4d4d;
+            --light-bg: #fff5f5;
+            --text-dark: #333;
+            --text-light: #666;
+            --white: #ffffff;
+            --border-light: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 28px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+        
+        .btn-register {
+            background-color: var(--white);
+            color: var(--primary-red);
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-register:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Registration Section */
+        .register-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 0;
+        }
+        
+        .register-container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .register-image {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: var(--white);
+        }
+        
+        .register-content {
+            flex: 1.2;
+            padding: 50px;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+        
+        .register-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .register-image h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .register-image p {
+            text-align: center;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .benefits-list {
+            margin-top: 30px;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .register-form {
+            max-width: 100%;
+        }
+        
+        .register-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .register-header h2 {
+            color: var(--primary-red);
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        
+        .register-header p {
+            color: var(--text-light);
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .section-title {
+            color: var(--primary-red);
+            margin-bottom: 20px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            font-size: 24px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        
+        .form-group.required label:after {
+            content: ' *';
+            color: var(--primary-red);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-red);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(194, 12, 12, 0.1);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+        
+        .form-hint {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+        
+        /* Role Selection */
+        .role-selection {
+            margin: 30px 0;
+        }
+        
+        .role-label {
+            display: block;
+            margin-bottom: 15px;
+            font-weight: 500;
+            font-size: 18px;
+        }
+        
+        .role-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .role-option {
+            position: relative;
+        }
+        
+        .role-option input {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .role-label-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            height: 100%;
+        }
+        
+        .role-option input:checked + .role-label-box {
+            border-color: var(--primary-red);
+            background-color: var(--light-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .role-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--primary-red);
+        }
+        
+        .role-description {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 8px;
+        }
+        
+        /* ID Verification */
+        .id-verification {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .id-upload {
+            border: 2px dashed var(--border-light);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+        
+        .id-upload:hover {
+            border-color: var(--primary-red);
+        }
+        
+        .upload-icon {
+            font-size: 40px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        .upload-text {
+            color: var(--text-light);
+        }
+        
+        .upload-text strong {
+            color: var(--primary-red);
+        }
+        
+        .accepted-formats {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 10px;
+        }
+        
+        /* Terms and Conditions */
+        .terms-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 25px 0;
+        }
+        
+        .terms-group input {
+            margin-top: 3px;
+        }
+        
+        .terms-text {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .terms-text a {
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+        
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+        
+        .btn-register-submit {
+            background-color: var(--primary-red);
+            color: var(--white);
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        
+        .btn-register-submit:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+        }
+        
+        .login-link a {
+            color: var(--primary-red);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .progress-steps:before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--border-light);
+            z-index: 1;
+        }
+        
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--white);
+            border: 2px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .step-active .step-number {
+            background-color: var(--primary-red);
+            border-color: var(--primary-red);
+            color: var(--white);
+        }
+        
+        .step-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .step-active .step-label {
+            color: var(--primary-red);
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-red);
+            color: var(--white);
+            padding: 40px 0 20px;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--light-red);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-red);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .register-container {
+                flex-direction: column;
+            }
+            
+            .register-image {
+                padding: 30px;
+            }
+            
+            .register-content {
+                padding: 30px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .role-options {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .progress-steps {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .progress-steps:before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-tint"></i>
+                    <h1>BloodBond</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="eligibility.html">Eligibility</a></li>
+                        <li><a href="find-blood.html">Find Blood</a></li>
+                        <li><a href="camps.html">Camps</a></li>
+                        <li><a href="credits.html">Credits</a></li>
+                        <li><a href="certificate.html">Certificate</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-login">Login</a>
+                    <a href="register.html" class="btn btn-register active">Register</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Registration Section -->
+    <section class="register-section">
+        <div class="register-container">
+            <div class="register-image">
+                <div class="register-image-content">
+                    <div class="register-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h2>Join BloodBond Community</h2>
+                    <p>Register today and become a life-saver. Your registration helps us build a reliable blood supply network and connect donors with those in need.</p>
+                    
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <div>
+                                <strong>Track Your Donations</strong>
+                                <p>Keep record of all your blood donations</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div>
+                                <strong>Earn Blood Credits</strong>
+                                <p>Get credits for emergencies</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div>
+                                <strong>Digital Certificates</strong>
+                                <p>Receive certificates for each donation</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div>
+                                <strong>Emergency Alerts</strong>
+                                <p>Get notified when your blood type is needed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="register-content">
+                <div class="register-form">
+                    <div class="register-header">
+                        <h2>Create Your Account</h2>
+                        <p>Fill in your details to join our life-saving community</p>
+                    </div>
+                    
+                    <!-- Progress Steps -->
+                    <div class="progress-steps">
+                        <div class="progress-step step-active">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Account</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Personal</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Medical</div>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-number">4</div>
+                            <div class="step-label">Verify</div>
+                        </div>
+                    </div>
+                    
+                    <form id="registerForm">
+                        <!-- Role Selection -->
+                        <div class="role-selection">
+                            <label class="role-label">I want to register as a:</label>
+                            <div class="role-options">
+                                <div class="role-option">
+                                    <input type="radio" id="donor" name="role" value="donor" checked>
+                                    <label for="donor" class="role-label-box">
+                                        <div class="role-icon">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <span>Blood Donor</span>
+                                        <div class="role-description">I want to donate blood</div>
+                                    </label>
+                                </div>
+                                <div class="role-option">
+                                    <input type="radio" id="receiver" name="role" value="receiver">
+                                    <label for="receiver" class="role-label-box">
+                                        <div class="role-icon">
+                                            <i class="fas fa-hand-holding-heart"></i>
+                                        </div>
+                                        <span>Blood Receiver</span>
+                                        <div class="role-description">I may need blood</div>
+                                    </label>
+                                </div>
+                                <div class="role-option">
+                                    <input type="radio" id="doctor" name="role" value="doctor">
+                                    <label for="doctor" class="role-label-box">
+                                        <div class="role-icon">
+                                            <i class="fas fa-user-md"></i>
+                                        </div>
+                                        <span>Doctor</span>
+                                        <div class="role-description">Medical professional</div>
+                                    </label>
+                                </div>
+                                <div class="role-option">
+                                    <input type="radio" id="hospital" name="role" value="hospital">
+                                    <label for="hospital" class="role-label-box">
+                                        <div class="role-icon">
+                                            <i class="fas fa-hospital"></i>
+                                        </div>
+                                        <span>Hospital</span>
+                                        <div class="role-description">Healthcare institution</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Account Information -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <i class="fas fa-user-circle"></i>
+                                Account Information
+                            </h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group required">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" class="form-control" placeholder="Enter your first name" required>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" class="form-control" placeholder="Enter your last name" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group required">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
+                                <div class="form-hint">We'll send a verification code to this email</div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group required">
+                                    <label for="password">Password</label>
+                                    <div class="password-container">
+                                        <input type="password" id="password" class="form-control" placeholder="Create a password" required>
+                                        <button type="button" class="toggle-password" id="togglePassword">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-hint">Must be at least 8 characters with uppercase, lowercase, and number</div>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Personal Information -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <i class="fas fa-address-card"></i>
+                                Personal Information
+                            </h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group required">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="birthDate">Date of Birth</label>
+                                    <input type="date" id="birthDate" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group required">
+                                    <label for="gender">Gender</label>
+                                    <select id="gender" class="form-control" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                        <option value="prefer-not-to-say">Prefer not to say</option>
+                                    </select>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="bloodGroup">Blood Group</label>
+                                    <select id="bloodGroup" class="form-control" required>
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="unknown">Don't Know</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group required">
+                                <label for="address">Address</label>
+                                <input type="text" id="address" class="form-control" placeholder="Enter your street address" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group required">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" class="form-control" placeholder="Enter your city" required>
+                                </div>
+                                <div class="form-group required">
+                                    <label for="pincode">Pincode</label>
+                                    <input type="text" id="pincode" class="form-control" placeholder="Enter pincode" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group required">
+                                <label for="state">State</label>
+                                <input type="text" id="state" class="form-control" placeholder="Enter your state" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Medical Information -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <i class="fas fa-heartbeat"></i>
+                                Medical Information
+                            </h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group required">
+                                    <label for="weight">Weight (kg)</label>
+                                    <input type="number" id="weight" class="form-control" placeholder="Enter weight in kg" min="30" required>
+                                    <div class="form-hint">Minimum 50kg required for donation</div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastDonation">Last Donation Date</label>
+                                    <input type="date" id="lastDonation" class="form-control">
+                                    <div class="form-hint">If applicable</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Any known medical conditions?</label>
+                                <div class="form-hint">Select all that apply</div>
+                                <div style="margin-top: 10px;">
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                                        <div>
+                                            <input type="checkbox" id="condition-none" name="medicalConditions" value="none" checked>
+                                            <label for="condition-none">None</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="condition-diabetes" name="medicalConditions" value="diabetes">
+                                            <label for="condition-diabetes">Diabetes</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="condition-hypertension" name="medicalConditions" value="hypertension">
+                                            <label for="condition-hypertension">Hypertension</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="condition-heart" name="medicalConditions" value="heart">
+                                            <label for="condition-heart">Heart Disease</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="condition-other" name="medicalConditions" value="other">
+                                            <label for="condition-other">Other</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- ID Verification -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <i class="fas fa-id-card"></i>
+                                Identity Verification
+                            </h3>
+                            
+                            <div class="id-verification">
+                                <p style="margin-bottom: 15px; font-weight: 500;">To ensure the safety and authenticity of our blood donation community, we require government-issued ID verification.</p>
+                                
+                                <div class="id-upload" id="idUpload">
+                                    <div class="upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <div class="upload-text">
+                                        <strong>Click to upload</strong> your government ID
+                                    </div>
+                                    <div class="accepted-formats">
+                                        Accepted: Aadhaar, PAN, Driver's License, Passport (Max 5MB)
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="idNumber">ID Number</label>
+                                    <input type="text" id="idNumber" class="form-control" placeholder="Enter your ID number">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Terms and Conditions -->
+                        <div class="terms-group">
+                            <input type="checkbox" id="terms" required>
+                            <label for="terms" class="terms-text">
+                                I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. 
+                                I confirm that all information provided is accurate and I meet the eligibility criteria for blood donation.
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-register-submit">Create Account</button>
+                        
+                        <div class="login-link">
+                            <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BloodBond</h3>
+                    <p>Connecting donors, hospitals, and recipients to ensure no one dies due to lack of blood.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="eligibility.html">Eligibility Check</a></li>
+                        <li><a href="find-blood.html">Find Blood</a></li>
+                        <li><a href="camps.html">Donation Camps</a></li>
+                        <li><a href="credits.html">Blood Credits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Donation Process</a></li>
+                        <li><a href="#">Blood Types</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@bloodbond.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BloodBond. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+
+        // ID Upload functionality
+        document.getElementById('idUpload').addEventListener('click', function() {
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = '.jpg,.jpeg,.png,.pdf';
+            fileInput.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert('File size must be less than 5MB');
+                        return;
+                    }
+                    alert(`File "${file.name}" selected successfully!`);
+                    // In real application, this would upload the file
+                }
+            };
+            fileInput.click();
+        });
+
+        // Form submission
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const email = document.getElementById('email').value;
+            const weight = document.getElementById('weight').value;
+            const terms = document.getElementById('terms').checked;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            if (parseInt(weight) < 50) {
+                alert('Minimum weight requirement for blood donation is 50kg.');
+                return;
+            }
+            
+            if (!terms) {
+                alert('Please accept the Terms of Service and Privacy Policy.');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Get selected role
+            const role = document.querySelector('input[name="role"]:checked').value;
+            
+            // Simulate registration process
+            alert(`Registration successful! Welcome to BloodBond as a ${role}. Redirecting to verification...`);
+            
+            // In a real application, this would redirect to verification or dashboard
+            setTimeout(() => {
+                switch(role) {
+                    case 'donor':
+                        window.location.href = 'donor-dashboard.html';
+                        break;
+                    case 'receiver':
+                        window.location.href = 'receiver-dashboard.html';
+                        break;
+                    case 'doctor':
+                        window.location.href = 'doctor-dashboard.html';
+                        break;
+                    case 'hospital':
+                        window.location.href = 'hospital-dashboard.html';
+                        break;
+                }
+            }, 2000);
+        });
+
+        // Email validation function
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Set max date for birth date (18 years ago)
+        const today = new Date();
+        const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+        document.getElementById('birthDate').max = maxDate.toISOString().split('T')[0];
+
+        // Set max date for last donation (today)
+        document.getElementById('lastDonation').max = today.toISOString().split('T')[0];
+
+        // Handle medical conditions - if "none" is checked, uncheck others
+        document.getElementById('condition-none').addEventListener('change', function() {
+            if (this.checked) {
+                document.querySelectorAll('input[name="medicalConditions"]:not(#condition-none)').forEach(cb => {
+                    cb.checked = false;
+                });
+            }
+        });
+
+        // If any other condition is checked, uncheck "none"
+        document.querySelectorAll('input[name="medicalConditions"]:not(#condition-none)').forEach(cb => {
+            cb.addEventListener('change', function() {
+                if (this.checked) {
+                    document.getElementById('condition-none').checked = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

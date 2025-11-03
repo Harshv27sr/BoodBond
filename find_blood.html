@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Blood - BloodBond</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #c20c0c;
+            --dark-red: #8a0a0a;
+            --light-red: #ff4d4d;
+            --light-bg: #fff5f5;
+            --text-dark: #333;
+            --text-light: #666;
+            --white: #ffffff;
+            --border-light: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 28px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+        
+        .btn-register {
+            background-color: var(--white);
+            color: var(--primary-red);
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-register:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-red);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-red);
+            margin: 10px auto;
+        }
+        
+        /* Blood Search Section */
+        .blood-search {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+        
+        .search-form {
+            display: flex;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-form select, .search-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .btn-search {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 0 25px;
+        }
+        
+        .btn-search:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .emergency-search {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff8f8;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-red);
+        }
+        
+        .emergency-search h4 {
+            color: var(--primary-red);
+            margin-bottom: 10px;
+        }
+        
+        /* Results Section */
+        .results-section {
+            margin-top: 40px;
+        }
+        
+        .blood-bank-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary-red);
+            transition: transform 0.3s ease;
+        }
+        
+        .blood-bank-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .blood-bank-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .blood-bank-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .blood-bank-distance {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .blood-bank-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-item i {
+            color: var(--primary-red);
+            width: 20px;
+        }
+        
+        .blood-stock {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .blood-type {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .blood-available {
+            background-color: #e8f5e8;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .blood-low {
+            background-color: #fff3e0;
+            color: #ef6c00;
+            border: 1px solid #ffe0b2;
+        }
+        
+        .blood-unavailable {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .blood-bank-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .btn-action {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        
+        .btn-call {
+            background-color: var(--primary-red);
+            color: var(--white);
+        }
+        
+        .btn-direction {
+            background-color: transparent;
+            border: 1px solid var(--primary-red);
+            color: var(--primary-red);
+        }
+        
+        .btn-request {
+            background-color: #28a745;
+            color: var(--white);
+        }
+        
+        /* Map Section */
+        .map-section {
+            margin-top: 40px;
+        }
+        
+        .map-container {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+        }
+        
+        .map-placeholder {
+            text-align: center;
+            color: var(--text-light);
+        }
+        
+        .map-placeholder i {
+            font-size: 60px;
+            margin-bottom: 15px;
+            color: var(--primary-red);
+        }
+        
+        /* Blood Types Info */
+        .blood-types-info {
+            margin-top: 60px;
+        }
+        
+        .blood-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .blood-type-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid var(--primary-red);
+        }
+        
+        .blood-type-icon {
+            font-size: 40px;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+        }
+        
+        .blood-type-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .blood-type-desc {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .compatibility {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .compatible {
+            background-color: #e8f5e8;
+            color: #2e7d32;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-red);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--light-red);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-red);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .search-form {
+                flex-direction: column;
+            }
+            
+            .blood-bank-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .blood-bank-actions {
+                flex-direction: column;
+            }
+            
+            .btn-action {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-tint"></i>
+                    <h1>BloodBond</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="eligibility.html">Eligibility</a></li>
+                        <li><a href="find-blood.html" class="active">Find Blood</a></li>
+                        <li><a href="camps.html">Camps</a></li>
+                        <li><a href="credits.html">Credits</a></li>
+                        <li><a href="certificate.html">Certificate</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-login">Login</a>
+                    <a href="register.html" class="btn btn-register">Register</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <h2 class="section-title">Find Blood Near You</h2>
+        
+        <!-- Blood Search Section -->
+        <section class="blood-search">
+            <div class="search-form">
+                <select class="form-control">
+                    <option value="">Select Blood Type</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+                <input type="text" class="form-control" placeholder="Enter your area pincode">
+                <button class="btn btn-search">Search</button>
+            </div>
+            
+            <div class="emergency-search">
+                <h4><i class="fas fa-exclamation-triangle"></i> Need Blood Urgently?</h4>
+                <p>Call our emergency helpline or use the emergency request feature for immediate assistance.</p>
+                <div class="mt-3">
+                    <a href="#" class="btn btn-action btn-call me-2">
+                        <i class="fas fa-phone"></i> Emergency Helpline: 1800-123-4567
+                    </a>
+                    <a href="#" class="btn btn-action btn-request">
+                        <i class="fas fa-bell"></i> Emergency Request
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section">
+            <h3 class="mb-4">Available Blood Banks</h3>
+            
+            <div class="blood-bank-card">
+                <div class="blood-bank-header">
+                    <div class="blood-bank-name">City General Hospital Blood Bank</div>
+                    <div class="blood-bank-distance"><i class="fas fa-map-marker-alt"></i> 2.5 km away</div>
+                </div>
+                
+                <div class="blood-bank-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>123 Medical Street, Healthcare City</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 234 567 8901</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Open 24/7</span>
+                    </div>
+                </div>
+                
+                <div class="blood-stock">
+                    <div class="blood-type blood-available">A+ (12 units)</div>
+                    <div class="blood-type blood-available">B+ (8 units)</div>
+                    <div class="blood-type blood-low">O+ (3 units)</div>
+                    <div class="blood-type blood-unavailable">AB- (0 units)</div>
+                </div>
+                
+                <div class="blood-bank-actions">
+                    <a href="#" class="btn btn-action btn-call">
+                        <i class="fas fa-phone"></i> Call Now
+                    </a>
+                    <a href="#" class="btn btn-action btn-direction">
+                        <i class="fas fa-directions"></i> Get Directions
+                    </a>
+                    <a href="#" class="btn btn-action btn-request">
+                        <i class="fas fa-hand-holding-medical"></i> Request Blood
+                    </a>
+                </div>
+            </div>
+            
+            <div class="blood-bank-card">
+                <div class="blood-bank-header">
+                    <div class="blood-bank-name">Red Cross Blood Center</div>
+                    <div class="blood-bank-distance"><i class="fas fa-map-marker-alt"></i> 5.2 km away</div>
+                </div>
+                
+                <div class="blood-bank-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>456 Donation Avenue, Service Town</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 234 567 8902</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>8:00 AM - 8:00 PM</span>
+                    </div>
+                </div>
+                
+                <div class="blood-stock">
+                    <div class="blood-type blood-available">O- (6 units)</div>
+                    <div class="blood-type blood-available">AB+ (5 units)</div>
+                    <div class="blood-type blood-available">B- (7 units)</div>
+                    <div class="blood-type blood-low">A- (2 units)</div>
+                </div>
+                
+                <div class="blood-bank-actions">
+                    <a href="#" class="btn btn-action btn-call">
+                        <i class="fas fa-phone"></i> Call Now
+                    </a>
+                    <a href="#" class="btn btn-action btn-direction">
+                        <i class="fas fa-directions"></i> Get Directions
+                    </a>
+                    <a href="#" class="btn btn-action btn-request">
+                        <i class="fas fa-hand-holding-medical"></i> Request Blood
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section">
+            <h3 class="mb-4">Blood Banks Near You</h3>
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h4>Interactive Map</h4>
+                    <p>Blood bank locations would be displayed here</p>
+                    <small>Map integration would show real-time locations</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blood Types Info -->
+        <section class="blood-types-info">
+            <h2 class="section-title">Blood Type Compatibility</h2>
+            <div class="blood-types-grid">
+                <div class="blood-type-card">
+                    <div class="blood-type-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="blood-type-name">A+</div>
+                    <div class="blood-type-desc">Can donate to: A+, AB+</div>
+                    <div class="compatibility">
+                        <span class="compatible">A+</span>
+                        <span class="compatible">AB+</span>
+                    </div>
+                </div>
+                
+                <div class="blood-type-card">
+                    <div class="blood-type-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="blood-type-name">O+</div>
+                    <div class="blood-type-desc">Can donate to: O+, A+, B+, AB+</div>
+                    <div class="compatibility">
+                        <span class="compatible">O+</span>
+                        <span class="compatible">A+</span>
+                        <span class="compatible">B+</span>
+                        <span class="compatible">AB+</span>
+                    </div>
+                </div>
+                
+                <div class="blood-type-card">
+                    <div class="blood-type-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="blood-type-name">B-</div>
+                    <div class="blood-type-desc">Can donate to: B-, B+, AB-, AB+</div>
+                    <div class="compatibility">
+                        <span class="compatible">B-</span>
+                        <span class="compatible">B+</span>
+                        <span class="compatible">AB-</span>
+                        <span class="compatible">AB+</span>
+                    </div>
+                </div>
+                
+                <div class="blood-type-card">
+                    <div class="blood-type-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="blood-type-name">AB+</div>
+                    <div class="blood-type-desc">Universal recipient</div>
+                    <div class="compatibility">
+                        <span class="compatible">All Types</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BloodBond</h3>
+                    <p>Connecting donors, hospitals, and recipients to ensure no one dies due to lack of blood.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="eligibility.html">Eligibility Check</a></li>
+                        <li><a href="find-blood.html">Find Blood</a></li>
+                        <li><a href="camps.html">Donation Camps</a></li>
+                        <li><a href="credits.html">Blood Credits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Donation Process</a></li>
+                        <li><a href="#">Blood Types</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@bloodbond.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BloodBond. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple search functionality
+        document.querySelector('.btn-search').addEventListener('click', function() {
+            const bloodType = document.querySelector('select').value;
+            const pincode = document.querySelector('input[type="text"]').value;
+            
+            if (!bloodType || !pincode) {
+                alert('Please select blood type and enter pincode to search.');
+                return;
+            }
+            
+            alert(`Searching for ${bloodType} blood near pincode ${pincode}...`);
+            // In a real application, this would make an API call to fetch results
+        });
+    </script>
+</body>
+</html>

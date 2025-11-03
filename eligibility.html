@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eligibility Check - BloodBond</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #c20c0c;
+            --dark-red: #8a0a0a;
+            --light-red: #ff4d4d;
+            --light-bg: #fff5f5;
+            --text-dark: #333;
+            --text-light: #666;
+            --white: #ffffff;
+            --border-light: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 28px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            background-color: var(--dark-red);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+        
+        .btn-register {
+            background-color: var(--white);
+            color: var(--primary-red);
+        }
+        
+        .btn-login:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-register:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-red);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-red);
+            margin: 10px auto;
+        }
+        
+        /* Eligibility Cards */
+        .eligibility-cards {
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            margin-bottom: 20px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-header {
+            background-color: var(--primary-red);
+            color: var(--white);
+            cursor: pointer;
+            border: none;
+            padding: 15px 20px;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .card-body ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        
+        .card-body li {
+            margin-bottom: 8px;
+        }
+        
+        /* Eligibility Form */
+        .eligibility-form {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .btn-submit {
+            background-color: var(--primary-red);
+            color: var(--white);
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        .btn-submit:hover {
+            background-color: var(--dark-red);
+        }
+        
+        /* Result Section */
+        .result-section {
+            display: none;
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .result-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .eligible {
+            color: #28a745;
+        }
+        
+        .not-eligible {
+            color: #dc3545;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-red);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--light-red);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-red);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-tint"></i>
+                    <h1>BloodBond</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="eligibility.html" class="active">Eligibility</a></li>
+                        <li><a href="find-blood.html">Find Blood</a></li>
+                        <li><a href="camps.html">Camps</a></li>
+                        <li><a href="credits.html">Credits</a></li>
+                        <li><a href="certificate.html">Certificate</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-login">Login</a>
+                    <a href="register.html" class="btn btn-register">Register</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <h2 class="section-title">Check Your Donation Eligibility</h2>
+        
+        <!-- Eligibility Requirements -->
+        <div class="eligibility-cards">
+            <div class="card">
+                <div class="card-header" data-bs-toggle="collapse" href="#critical">
+                    Most Critical Requirements
+                </div>
+                <div class="collapse show" id="critical">
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Age:</strong> 18–65 years</li>
+                            <li><strong>Weight:</strong> Minimum 50 kg</li>
+                            <li><strong>Hemoglobin Level:</strong> At least 12.5 g/dL (women), 13 g/dL (men)</li>
+                            <li><strong>General Health:</strong> Must be healthy, free from infection or acute illness</li>
+                            <li><strong>No recent surgeries or major illnesses</strong> in the last 6 months</li>
+                            <li><strong>Not pregnant or breastfeeding</strong></li>
+                            <li><strong>No blood donation</strong> within the last 3 months</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" data-bs-toggle="collapse" href="#temporary">
+                    Temporary Deferrals
+                </div>
+                <div class="collapse" id="temporary">
+                    <div class="card-body">
+                        <ul>
+                            <li>Fever, cold, flu, or infection in past 7 days</li>
+                            <li>Recent vaccination (48 hrs – 2 weeks depending on vaccine)</li>
+                            <li>Recent travel to epidemic-prone areas</li>
+                            <li>Minor surgery, dental work, or blood tests in past week</li>
+                            <li>Tattoo or piercing within last 6–12 months</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" data-bs-toggle="collapse" href="#permanent">
+                    Permanent Deferrals
+                </div>
+                <div class="collapse" id="permanent">
+                    <div class="card-body">
+                        <ul>
+                            <li>HIV/AIDS, Hepatitis B or C infection</li>
+                            <li>Certain cancers (active/metastatic)</li>
+                            <li>Serious heart, lung, or kidney disease</li>
+                            <li>History of intravenous drug abuse</li>
+                            <li>High-risk sexual behavior (depending on blood bank rules)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Eligibility Form -->
+        <div class="eligibility-form">
+            <h3 class="text-center mb-4">Quick Eligibility Check</h3>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" class="form-control" placeholder="Enter your age">
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (kg)</label>
+                <input type="number" id="weight" class="form-control" placeholder="Enter your weight">
+            </div>
+            <div class="form-group">
+                <label>Do you have or have you had any of the following conditions?</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="hiv">
+                        <label for="hiv">HIV/AIDS</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="hepatitis">
+                        <label for="hepatitis">Hepatitis B or C</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="malaria">
+                        <label for="malaria">Malaria</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="cancer">
+                        <label for="cancer">Cancer</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="heart-disease">
+                        <label for="heart-disease">Heart Disease</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="bleeding-disorder">
+                        <label for="bleeding-disorder">Bleeding Disorder</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>In the last 6 months, have you:</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="surgery">
+                        <label for="surgery">Had surgery</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="tattoo">
+                        <label for="tattoo">Gotten a tattoo or piercing</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="pregnancy">
+                        <label for="pregnancy">Been pregnant</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="travel">
+                        <label for="travel">Traveled to malaria-risk areas</label>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-submit" onclick="checkEligibility()">Check Eligibility</button>
+        </div>
+
+        <!-- Result Section -->
+        <div class="result-section" id="resultSection">
+            <div class="result-icon" id="resultIcon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 id="resultTitle">You are Eligible to Donate Blood</h3>
+            <p id="resultMessage">Based on the information provided, you meet the basic requirements for blood donation.</p>
+            <div class="mt-4">
+                <a href="register.html" class="btn btn-submit">Register as Donor</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BloodBond</h3>
+                    <p>Connecting donors, hospitals, and recipients to ensure no one dies due to lack of blood.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="eligibility.html">Eligibility Check</a></li>
+                        <li><a href="find-blood.html">Find Blood</a></li>
+                        <li><a href="camps.html">Donation Camps</a></li>
+                        <li><a href="credits.html">Blood Credits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Donation Process</a></li>
+                        <li><a href="#">Blood Types</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@bloodbond.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BloodBond. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function checkEligibility() {
+            const age = parseInt(document.getElementById('age').value);
+            const weight = parseInt(document.getElementById('weight').value);
+            const hiv = document.getElementById('hiv').checked;
+            const hepatitis = document.getElementById('hepatitis').checked;
+            const cancer = document.getElementById('cancer').checked;
+            const heartDisease = document.getElementById('heart-disease').checked;
+            const surgery = document.getElementById('surgery').checked;
+            const pregnancy = document.getElementById('pregnancy').checked;
+            
+            const resultSection = document.getElementById('resultSection');
+            const resultIcon = document.getElementById('resultIcon');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultMessage = document.getElementById('resultMessage');
+            
+            if (!age || !weight) {
+                alert('Please enter your age and weight to check eligibility.');
+                return;
+            }
+            
+            let isEligible = true;
+            let reasons = [];
+            
+            // Check basic requirements
+            if (age < 18 || age > 65) {
+                isEligible = false;
+                reasons.push('Age must be between 18 and 65 years.');
+            }
+            
+            if (weight < 50) {
+                isEligible = false;
+                reasons.push('Minimum weight requirement is 50 kg.');
+            }
+            
+            // Check medical conditions
+            if (hiv || hepatitis || cancer || heartDisease) {
+                isEligible = false;
+                reasons.push('Certain medical conditions make you ineligible.');
+            }
+            
+            if (surgery || pregnancy) {
+                isEligible = false;
+                reasons.push('Recent surgery or pregnancy makes you temporarily ineligible.');
+            }
+            
+            // Show result
+            if (isEligible) {
+                resultIcon.innerHTML = '<i class="fas fa-check-circle eligible"></i>';
+                resultTitle.textContent = 'You are Eligible to Donate Blood';
+                resultMessage.textContent = 'Based on the information provided, you meet the basic requirements for blood donation. Please visit a donation center for final verification.';
+                resultIcon.className = 'result-icon eligible';
+            } else {
+                resultIcon.innerHTML = '<i class="fas fa-times-circle not-eligible"></i>';
+                resultTitle.textContent = 'You are Not Eligible to Donate Blood';
+                resultMessage.textContent = 'Based on the information provided: ' + reasons.join(' ') + ' Please consult with a healthcare professional for more information.';
+                resultIcon.className = 'result-icon not-eligible';
+            }
+            
+            resultSection.style.display = 'block';
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
