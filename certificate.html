@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,27 +21,27 @@
             --white: #ffffff;
             --border-light: #e0e0e0;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background-color: var(--light-bg);
             color: var(--text-dark);
             line-height: 1.6;
         }
-        
+
         .container {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
+
         /* Header Styles */
         header {
             background-color: var(--primary-red);
@@ -51,35 +52,39 @@
             top: 0;
             z-index: 1000;
         }
-        
+
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
+
         .logo i {
             font-size: 28px;
         }
-        
+
         .logo h1 {
             font-size: 24px;
             font-weight: 700;
         }
-        
-        nav ul {
+
+        .desktop-nav {
+            display: flex;
+        }
+
+        .desktop-nav ul {
             display: flex;
             list-style: none;
             gap: 25px;
         }
-        
-        nav a {
+
+        .desktop-nav a {
             color: var(--white);
             text-decoration: none;
             font-weight: 500;
@@ -87,16 +92,16 @@
             padding: 5px 10px;
             border-radius: 4px;
         }
-        
-        nav a:hover {
+
+        .desktop-nav a:hover {
             background-color: var(--dark-red);
         }
-        
+
         .auth-buttons {
             display: flex;
             gap: 15px;
         }
-        
+
         .btn {
             padding: 8px 20px;
             border-radius: 4px;
@@ -108,38 +113,130 @@
             display: inline-block;
             text-align: center;
         }
-        
+
         .btn-login {
             background-color: transparent;
             border: 2px solid var(--white);
             color: var(--white);
         }
-        
+
         .btn-register {
             background-color: var(--white);
             color: var(--primary-red);
         }
-        
+
         .btn-login:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
-        
+
         .btn-register:hover {
             background-color: #f0f0f0;
         }
-        
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .offcanvas {
+            background-color: var(--primary-red);
+            color: var(--white);
+        }
+
+        .offcanvas-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+        }
+
+        .offcanvas-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .offcanvas-body {
+            padding: 20px;
+        }
+
+        .mobile-nav {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .mobile-nav li {
+            margin-bottom: 10px;
+        }
+
+        .mobile-nav a {
+            color: var(--white);
+            text-decoration: none;
+            display: block;
+            padding: 12px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .mobile-nav a:hover {
+            background-color: var(--dark-red);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                gap: 15px;
+            }
+
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            /* Adjust auth buttons for mobile */
+            .auth-buttons {
+                gap: 10px;
+            }
+
+            .auth-buttons .btn {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 20px;
+            }
+
+            .auth-buttons .btn {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+        }
+
+
         /* Main Content */
         .main-content {
             padding: 60px 0;
         }
-        
+
         .section-title {
             text-align: center;
             margin-bottom: 40px;
             color: var(--primary-red);
             position: relative;
         }
-        
+
         .section-title:after {
             content: '';
             display: block;
@@ -148,7 +245,7 @@
             background-color: var(--primary-red);
             margin: 10px auto;
         }
-        
+
         /* Certificate Section */
         .certificate-section {
             display: flex;
@@ -159,7 +256,7 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
-        
+
         .scanner-container {
             flex: 1;
             background-color: #f9f9f9;
@@ -169,7 +266,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .scanner-placeholder {
             width: 100%;
             height: 300px;
@@ -181,20 +278,20 @@
             flex-direction: column;
             margin-bottom: 20px;
         }
-        
+
         .scanner-placeholder i {
             font-size: 50px;
             color: #888;
             margin-bottom: 15px;
         }
-        
+
         .certificate-preview {
             flex: 1;
             padding: 30px;
             background: linear-gradient(135deg, #fff5f5, #ffe6e6);
             border-left: 1px solid var(--border-light);
         }
-        
+
         /* Certificate Form */
         .certificate-form {
             background-color: var(--white);
@@ -203,17 +300,17 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             margin-bottom: 40px;
         }
-        
+
         .form-group {
             margin-bottom: 20px;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
         }
-        
+
         .form-control {
             width: 100%;
             padding: 12px 15px;
@@ -221,7 +318,7 @@
             border-radius: 4px;
             font-size: 16px;
         }
-        
+
         .btn-submit {
             background-color: var(--primary-red);
             color: var(--white);
@@ -230,11 +327,11 @@
             font-size: 18px;
             margin-top: 20px;
         }
-        
+
         .btn-submit:hover {
             background-color: var(--dark-red);
         }
-        
+
         /* Certificate Design */
         .paper {
             width: 100%;
@@ -248,34 +345,34 @@
             position: relative;
             margin: 0 auto;
         }
-        
+
         .cert-title {
             color: #000;
             font-size: 2.2rem;
             font-weight: 800;
             margin-bottom: 0;
         }
-        
+
         .cert-sub {
             font-size: 1.1rem;
             margin-bottom: 20px;
             color: #333;
         }
-        
+
         .name {
             font-size: 1.8rem;
             font-weight: 700;
             margin: 10px 0;
             color: #000;
         }
-        
+
         .cert-body {
             font-size: 1.05rem;
             color: #222;
             line-height: 1.6;
             margin: 20px 0;
         }
-        
+
         /* Footer section (QR left, Issued by right) */
         .cert-footer {
             margin-top: 40px;
@@ -283,16 +380,16 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .cert-footer #qrcode {
             position: static;
         }
-        
+
         .signature {
             font-weight: 600;
             text-align: right;
         }
-        
+
         /* Action Buttons below certificate */
         .actions {
             margin-top: 20px;
@@ -300,12 +397,12 @@
             justify-content: center;
             gap: 15px;
         }
-        
+
         .actions .btn {
             width: auto;
             padding: 10px 20px;
         }
-        
+
         /* Preview Wrap */
         .preview-wrap {
             display: none;
@@ -313,7 +410,7 @@
             align-items: center;
             margin-top: 30px;
         }
-        
+
         /* My Certificates */
         .certificates-grid {
             display: grid;
@@ -321,7 +418,7 @@
             gap: 30px;
             margin-top: 40px;
         }
-        
+
         .certificate-card {
             background-color: var(--white);
             border-radius: 8px;
@@ -330,18 +427,18 @@
             border-left: 4px solid var(--primary-red);
             transition: transform 0.3s ease;
         }
-        
+
         .certificate-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .certificate-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
         }
-        
+
         .certificate-id {
             font-family: monospace;
             background-color: var(--light-bg);
@@ -349,16 +446,16 @@
             border-radius: 4px;
             font-size: 14px;
         }
-        
+
         .certificate-date {
             color: var(--text-light);
             font-size: 14px;
         }
-        
+
         .certificate-details {
             margin: 15px 0;
         }
-        
+
         .detail-item {
             display: flex;
             justify-content: space-between;
@@ -366,17 +463,17 @@
             padding-bottom: 8px;
             border-bottom: 1px solid var(--border-light);
         }
-        
+
         .detail-label {
             font-weight: 500;
         }
-        
+
         .certificate-actions {
             display: flex;
             gap: 10px;
             margin-top: 15px;
         }
-        
+
         .btn-cert {
             flex: 1;
             padding: 8px;
@@ -385,39 +482,39 @@
             text-decoration: none;
             font-size: 14px;
         }
-        
+
         .btn-view {
             background-color: var(--primary-red);
             color: var(--white);
         }
-        
+
         .btn-download {
             background-color: transparent;
             border: 1px solid var(--primary-red);
             color: var(--primary-red);
         }
-        
+
         /* Footer */
         footer {
             background-color: var(--dark-red);
             color: var(--white);
             padding: 50px 0 20px;
         }
-        
+
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
             margin-bottom: 40px;
         }
-        
+
         .footer-column h3 {
             margin-bottom: 20px;
             font-size: 18px;
             position: relative;
             padding-bottom: 10px;
         }
-        
+
         .footer-column h3:after {
             content: '';
             position: absolute;
@@ -427,31 +524,31 @@
             height: 2px;
             background-color: var(--light-red);
         }
-        
+
         .footer-column ul {
             list-style: none;
         }
-        
+
         .footer-column ul li {
             margin-bottom: 10px;
         }
-        
+
         .footer-column a {
             color: #e0e0e0;
             text-decoration: none;
             transition: color 0.3s ease;
         }
-        
+
         .footer-column a:hover {
             color: var(--white);
         }
-        
+
         .social-links {
             display: flex;
             gap: 15px;
             margin-top: 20px;
         }
-        
+
         .social-links a {
             display: flex;
             align-items: center;
@@ -462,12 +559,12 @@
             border-radius: 50%;
             transition: all 0.3s ease;
         }
-        
+
         .social-links a:hover {
             background-color: var(--primary-red);
             transform: translateY(-3px);
         }
-        
+
         .copyright {
             text-align: center;
             padding-top: 20px;
@@ -475,45 +572,46 @@
             font-size: 14px;
             color: #e0e0e0;
         }
-        
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
                 gap: 15px;
             }
-            
+
             nav ul {
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 15px;
             }
-            
+
             .certificate-section {
                 flex-direction: column;
             }
-            
+
             .cert-footer {
                 flex-direction: column;
                 gap: 10px;
             }
-            
+
             .actions {
                 flex-direction: column;
                 width: 100%;
                 align-items: center;
             }
-            
+
             .actions .btn {
                 width: 80%;
             }
-            
+
             .paper {
                 padding: 30px 20px;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -523,7 +621,9 @@
                     <i class="fas fa-tint"></i>
                     <h1>BloodBond</h1>
                 </div>
-                <nav>
+                
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="eligibility.html">Eligibility</a></li>
@@ -537,14 +637,44 @@
                     <a href="login.html" class="btn btn-login">Login</a>
                     <a href="register.html" class="btn btn-register">Register</a>
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+                    aria-controls="offcanvasMenu">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </header>
 
+
+    <!-- Offcanvas Menu for Mobile (Only navigation links) -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+            <div class="offcanvas-title" id="offcanvasMenuLabel">
+                <i class="fas fa-tint"></i>
+                <h5 class="mb-0">BloodBond</h5>
+            </div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="mobile-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="eligibility.html">Eligibility</a></li>
+                <li><a href="find-blood.html">Find Blood</a></li>
+                <li><a href="camps.html">Camps</a></li>
+                <li><a href="credits.html">Credits</a></li>
+                <li><a href="certificate.html">Certificate</a></li>
+            </ul>
+        </div>
+    </div>
+
+
     <!-- Main Content -->
     <div class="container main-content">
         <h2 class="section-title">Blood Donation Certificates</h2>
-        
+
         <!-- Certificate Scanner Section -->
         <section class="certificate-section">
             <div class="scanner-container">
@@ -591,7 +721,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -616,7 +746,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -627,11 +757,12 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Organization</label>
-                            <input type="text" id="orgName" class="form-control" required placeholder="e.g. XYZ Hospital">
+                            <input type="text" id="orgName" class="form-control" required
+                                placeholder="e.g. XYZ Hospital">
                         </div>
                     </div>
                 </div>
-                
+
                 <button type="button" id="generateBtn" class="btn btn-submit">Generate Certificate</button>
             </form>
         </section>
@@ -810,9 +941,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const $ = id => document.getElementById(id);
-            
+
             // Auto set today's date
             if ($('donDate')) {
                 $('donDate').value = new Date().toISOString().slice(0, 10);
@@ -914,4 +1045,5 @@
         });
     </script>
 </body>
+
 </html>
