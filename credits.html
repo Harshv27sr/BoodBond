@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,27 +18,27 @@
             --white: #ffffff;
             --border-light: #e0e0e0;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background-color: var(--light-bg);
             color: var(--text-dark);
             line-height: 1.6;
         }
-        
+
         .container {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
+
         /* Header Styles */
         header {
             background-color: var(--primary-red);
@@ -48,35 +49,39 @@
             top: 0;
             z-index: 1000;
         }
-        
+
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
+
         .logo i {
             font-size: 28px;
         }
-        
+
         .logo h1 {
             font-size: 24px;
             font-weight: 700;
         }
-        
-        nav ul {
+
+        .desktop-nav {
+            display: flex;
+        }
+
+        .desktop-nav ul {
             display: flex;
             list-style: none;
             gap: 25px;
         }
-        
-        nav a {
+
+        .desktop-nav a {
             color: var(--white);
             text-decoration: none;
             font-weight: 500;
@@ -84,16 +89,16 @@
             padding: 5px 10px;
             border-radius: 4px;
         }
-        
-        nav a:hover {
+
+        .desktop-nav a:hover {
             background-color: var(--dark-red);
         }
-        
+
         .auth-buttons {
             display: flex;
             gap: 15px;
         }
-        
+
         .btn {
             padding: 8px 20px;
             border-radius: 4px;
@@ -105,38 +110,130 @@
             display: inline-block;
             text-align: center;
         }
-        
+
         .btn-login {
             background-color: transparent;
             border: 2px solid var(--white);
             color: var(--white);
         }
-        
+
         .btn-register {
             background-color: var(--white);
             color: var(--primary-red);
         }
-        
+
         .btn-login:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
-        
+
         .btn-register:hover {
             background-color: #f0f0f0;
         }
-        
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .offcanvas {
+            background-color: var(--primary-red);
+            color: var(--white);
+        }
+
+        .offcanvas-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+        }
+
+        .offcanvas-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .offcanvas-body {
+            padding: 20px;
+        }
+
+        .mobile-nav {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .mobile-nav li {
+            margin-bottom: 10px;
+        }
+
+        .mobile-nav a {
+            color: var(--white);
+            text-decoration: none;
+            display: block;
+            padding: 12px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .mobile-nav a:hover {
+            background-color: var(--dark-red);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                gap: 15px;
+            }
+
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            /* Adjust auth buttons for mobile */
+            .auth-buttons {
+                gap: 10px;
+            }
+
+            .auth-buttons .btn {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 20px;
+            }
+
+            .auth-buttons .btn {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+        }
+
+
         /* Main Content */
         .main-content {
             padding: 60px 0;
         }
-        
+
         .section-title {
             text-align: center;
             margin-bottom: 40px;
             color: var(--primary-red);
             position: relative;
         }
-        
+
         .section-title:after {
             content: '';
             display: block;
@@ -145,7 +242,7 @@
             background-color: var(--primary-red);
             margin: 10px auto;
         }
-        
+
         /* Credits Dashboard */
         .credits-dashboard {
             background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
@@ -156,57 +253,57 @@
             margin-bottom: 40px;
             box-shadow: 0 10px 30px rgba(194, 12, 12, 0.3);
         }
-        
+
         .credits-display {
             font-size: 72px;
             font-weight: 800;
             margin: 20px 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
-        
+
         .credits-label {
             font-size: 18px;
             opacity: 0.9;
             margin-bottom: 30px;
         }
-        
+
         .credits-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             margin-top: 30px;
         }
-        
+
         .stat-card {
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             padding: 20px;
             backdrop-filter: blur(10px);
         }
-        
+
         .stat-number {
             font-size: 24px;
             font-weight: 700;
             margin-bottom: 5px;
         }
-        
+
         .stat-label {
             font-size: 14px;
             opacity: 0.8;
         }
-        
+
         /* How It Works */
         .how-it-works {
             margin: 60px 0;
         }
-        
+
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
             margin-top: 40px;
         }
-        
+
         .step-card {
             background-color: var(--white);
             border-radius: 8px;
@@ -216,11 +313,11 @@
             border-top: 4px solid var(--primary-red);
             transition: transform 0.3s ease;
         }
-        
+
         .step-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .step-icon {
             width: 60px;
             height: 60px;
@@ -233,7 +330,7 @@
             font-size: 24px;
             color: var(--primary-red);
         }
-        
+
         .step-number {
             background-color: var(--primary-red);
             color: var(--white);
@@ -246,26 +343,26 @@
             margin: 0 auto 15px;
             font-weight: 600;
         }
-        
+
         /* Transactions */
         .transactions-section {
             margin: 60px 0;
         }
-        
+
         .transactions-table {
             background-color: var(--white);
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
-        
+
         .table-header {
             background-color: var(--primary-red);
             color: var(--white);
             padding: 20px;
             font-weight: 600;
         }
-        
+
         .transaction-item {
             display: grid;
             grid-template-columns: 1fr auto auto;
@@ -274,17 +371,17 @@
             border-bottom: 1px solid var(--border-light);
             align-items: center;
         }
-        
+
         .transaction-item:last-child {
             border-bottom: none;
         }
-        
+
         .transaction-type {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        
+
         .transaction-icon {
             width: 40px;
             height: 40px;
@@ -294,40 +391,40 @@
             justify-content: center;
             font-size: 16px;
         }
-        
+
         .credit-earned {
             background-color: #e8f5e8;
             color: #2e7d32;
         }
-        
+
         .credit-used {
             background-color: #ffebee;
             color: #c62828;
         }
-        
+
         .credit-transferred {
             background-color: #e3f2fd;
             color: #1565c0;
         }
-        
+
         .transaction-amount {
             font-weight: 600;
             font-size: 18px;
         }
-        
+
         .credit-positive {
             color: #2e7d32;
         }
-        
+
         .credit-negative {
             color: #c62828;
         }
-        
+
         .transaction-date {
             color: var(--text-light);
             font-size: 14px;
         }
-        
+
         /* Emergency Section */
         .emergency-section {
             background-color: var(--white);
@@ -337,23 +434,23 @@
             margin: 60px 0;
             border-left: 4px solid var(--primary-red);
         }
-        
+
         .emergency-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-        
+
         .emergency-text h3 {
             color: var(--primary-red);
             margin-bottom: 15px;
         }
-        
+
         .emergency-text p {
             margin-bottom: 20px;
             max-width: 500px;
         }
-        
+
         .btn-emergency {
             background-color: var(--primary-red);
             color: var(--white);
@@ -362,17 +459,17 @@
             border-radius: 6px;
             font-weight: 600;
         }
-        
+
         .btn-emergency:hover {
             background-color: var(--dark-red);
         }
-        
+
         .emergency-icon {
             font-size: 80px;
             color: var(--primary-red);
             opacity: 0.8;
         }
-        
+
         /* Transfer Section */
         .transfer-section {
             background-color: var(--white);
@@ -381,22 +478,22 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             margin-top: 40px;
         }
-        
+
         .transfer-form {
             max-width: 500px;
             margin: 0 auto;
         }
-        
+
         .form-group {
             margin-bottom: 20px;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
         }
-        
+
         .form-control {
             width: 100%;
             padding: 12px 15px;
@@ -404,7 +501,7 @@
             border-radius: 4px;
             font-size: 16px;
         }
-        
+
         .btn-transfer {
             background-color: var(--primary-red);
             color: var(--white);
@@ -413,32 +510,32 @@
             font-size: 16px;
             margin-top: 10px;
         }
-        
+
         .btn-transfer:hover {
             background-color: var(--dark-red);
         }
-        
+
         /* Footer */
         footer {
             background-color: var(--dark-red);
             color: var(--white);
             padding: 50px 0 20px;
         }
-        
+
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
             margin-bottom: 40px;
         }
-        
+
         .footer-column h3 {
             margin-bottom: 20px;
             font-size: 18px;
             position: relative;
             padding-bottom: 10px;
         }
-        
+
         .footer-column h3:after {
             content: '';
             position: absolute;
@@ -448,31 +545,31 @@
             height: 2px;
             background-color: var(--light-red);
         }
-        
+
         .footer-column ul {
             list-style: none;
         }
-        
+
         .footer-column ul li {
             margin-bottom: 10px;
         }
-        
+
         .footer-column a {
             color: #e0e0e0;
             text-decoration: none;
             transition: color 0.3s ease;
         }
-        
+
         .footer-column a:hover {
             color: var(--white);
         }
-        
+
         .social-links {
             display: flex;
             gap: 15px;
             margin-top: 20px;
         }
-        
+
         .social-links a {
             display: flex;
             align-items: center;
@@ -483,12 +580,12 @@
             border-radius: 50%;
             transition: all 0.3s ease;
         }
-        
+
         .social-links a:hover {
             background-color: var(--primary-red);
             transform: translateY(-3px);
         }
-        
+
         .copyright {
             text-align: center;
             padding-top: 20px;
@@ -496,34 +593,34 @@
             font-size: 14px;
             color: #e0e0e0;
         }
-        
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
                 gap: 15px;
             }
-            
+
             nav ul {
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 15px;
             }
-            
+
             .credits-display {
                 font-size: 48px;
             }
-            
+
             .emergency-content {
                 flex-direction: column;
                 text-align: center;
             }
-            
+
             .emergency-icon {
                 margin-top: 20px;
                 font-size: 60px;
             }
-            
+
             .transaction-item {
                 grid-template-columns: 1fr;
                 gap: 10px;
@@ -532,6 +629,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -541,7 +639,9 @@
                     <i class="fas fa-tint"></i>
                     <h1>BloodBond</h1>
                 </div>
-                <nav>
+
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="eligibility.html">Eligibility</a></li>
@@ -555,19 +655,47 @@
                     <a href="login.html" class="btn btn-login">Login</a>
                     <a href="register.html" class="btn btn-register">Register</a>
                 </div>
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+                    aria-controls="offcanvasMenu">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </header>
 
+
+    <!-- Offcanvas Menu for Mobile (Only navigation links) -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+            <div class="offcanvas-title" id="offcanvasMenuLabel">
+                <i class="fas fa-tint"></i>
+                <h5 class="mb-0">BloodBond</h5>
+            </div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="mobile-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="eligibility.html">Eligibility</a></li>
+                <li><a href="find-blood.html">Find Blood</a></li>
+                <li><a href="camps.html">Camps</a></li>
+                <li><a href="credits.html">Credits</a></li>
+                <li><a href="certificate.html">Certificate</a></li>
+            </ul>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <div class="container main-content">
         <h2 class="section-title">Your Blood Credits</h2>
-        
+
         <!-- Credits Dashboard -->
         <section class="credits-dashboard">
             <div class="credits-display">150</div>
             <div class="credits-label">Available Blood Credits</div>
-            
+
             <div class="credits-stats">
                 <div class="stat-card">
                     <div class="stat-number">3</div>
@@ -600,7 +728,7 @@
                     <h4>Donate Blood</h4>
                     <p>Every blood donation earns you credits based on the type of donation</p>
                 </div>
-                
+
                 <div class="step-card">
                     <div class="step-number">2</div>
                     <div class="step-icon">
@@ -609,7 +737,7 @@
                     <h4>Earn Credits</h4>
                     <p>Whole blood: 50 credits<br>Platelets: 75 credits<br>Plasma: 60 credits</p>
                 </div>
-                
+
                 <div class="step-card">
                     <div class="step-number">3</div>
                     <div class="step-icon">
@@ -618,7 +746,7 @@
                     <h4>Use When Needed</h4>
                     <p>Use credits for emergency blood requirements for you or family members</p>
                 </div>
-                
+
                 <div class="step-card">
                     <div class="step-number">4</div>
                     <div class="step-icon">
@@ -637,7 +765,7 @@
                 <div class="table-header">
                     Transaction History
                 </div>
-                
+
                 <div class="transaction-item">
                     <div class="transaction-type">
                         <div class="transaction-icon credit-earned">
@@ -651,7 +779,7 @@
                     <div class="transaction-amount credit-positive">+50</div>
                     <div class="transaction-balance">Balance: 150</div>
                 </div>
-                
+
                 <div class="transaction-item">
                     <div class="transaction-type">
                         <div class="transaction-icon credit-earned">
@@ -665,7 +793,7 @@
                     <div class="transaction-amount credit-positive">+75</div>
                     <div class="transaction-balance">Balance: 100</div>
                 </div>
-                
+
                 <div class="transaction-item">
                     <div class="transaction-type">
                         <div class="transaction-icon credit-earned">
@@ -679,7 +807,7 @@
                     <div class="transaction-amount credit-positive">+50</div>
                     <div class="transaction-balance">Balance: 25</div>
                 </div>
-                
+
                 <div class="transaction-item">
                     <div class="transaction-type">
                         <div class="transaction-icon credit-transferred">
@@ -701,7 +829,8 @@
             <div class="emergency-content">
                 <div class="emergency-text">
                     <h3>Need Blood Urgently?</h3>
-                    <p>Use your blood credits to request emergency blood supply. Each unit of blood requires 50 credits. Emergency requests are processed within 30 minutes.</p>
+                    <p>Use your blood credits to request emergency blood supply. Each unit of blood requires 50 credits.
+                        Emergency requests are processed within 30 minutes.</p>
                     <a href="find-blood.html" class="btn btn-emergency">
                         <i class="fas fa-bell"></i> Emergency Blood Request
                     </a>
@@ -718,15 +847,18 @@
             <div class="transfer-form">
                 <div class="form-group">
                     <label for="recipient">Recipient Email or ID</label>
-                    <input type="text" id="recipient" class="form-control" placeholder="Enter recipient's email or user ID">
+                    <input type="text" id="recipient" class="form-control"
+                        placeholder="Enter recipient's email or user ID">
                 </div>
                 <div class="form-group">
                     <label for="credits">Number of Credits</label>
-                    <input type="number" id="credits" class="form-control" placeholder="Enter credits to transfer" max="150">
+                    <input type="number" id="credits" class="form-control" placeholder="Enter credits to transfer"
+                        max="150">
                 </div>
                 <div class="form-group">
                     <label for="message">Message (Optional)</label>
-                    <textarea id="message" class="form-control" placeholder="Add a personal message" rows="3"></textarea>
+                    <textarea id="message" class="form-control" placeholder="Add a personal message"
+                        rows="3"></textarea>
                 </div>
                 <button class="btn btn-transfer">Transfer Credits</button>
             </div>
@@ -785,31 +917,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Transfer credits functionality
-        document.querySelector('.btn-transfer').addEventListener('click', function() {
+        document.querySelector('.btn-transfer').addEventListener('click', function () {
             const recipient = document.getElementById('recipient').value;
             const credits = document.getElementById('credits').value;
-            
+
             if (!recipient || !credits) {
                 alert('Please enter recipient and number of credits to transfer.');
                 return;
             }
-            
+
             if (parseInt(credits) > 150) {
                 alert('You cannot transfer more credits than you have available.');
                 return;
             }
-            
+
             if (confirm(`Are you sure you want to transfer ${credits} credits to ${recipient}?`)) {
                 alert(`Successfully transferred ${credits} credits to ${recipient}.`);
                 // In real application, this would make an API call to process the transfer
             }
         });
-        
+
         // Update available credits when transfer amount changes
-        document.getElementById('credits').addEventListener('input', function() {
+        document.getElementById('credits').addEventListener('input', function () {
             const maxCredits = 150;
             const transferAmount = parseInt(this.value) || 0;
-            
+
             if (transferAmount > maxCredits) {
                 this.value = maxCredits;
                 alert(`You can only transfer up to ${maxCredits} credits.`);
@@ -817,4 +949,5 @@
         });
     </script>
 </body>
+
 </html>
