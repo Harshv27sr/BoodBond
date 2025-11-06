@@ -70,13 +70,17 @@
             font-weight: 700;
         }
         
-        nav ul {
+        .desktop-nav {
+            display: flex;
+        }
+
+        .desktop-nav ul {
             display: flex;
             list-style: none;
             gap: 25px;
         }
-        
-        nav a {
+
+        .desktop-nav a {
             color: var(--white);
             text-decoration: none;
             font-weight: 500;
@@ -84,11 +88,11 @@
             padding: 5px 10px;
             border-radius: 4px;
         }
-        
-        nav a:hover {
+
+        .desktop-nav a:hover {
             background-color: var(--dark-red);
         }
-        
+
         .auth-buttons {
             display: flex;
             gap: 15px;
@@ -123,6 +127,97 @@
         
         .btn-register:hover {
             background-color: #f0f0f0;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .offcanvas {
+            background-color: var(--primary-red);
+            color: var(--white);
+        }
+
+        .offcanvas-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+        }
+
+        .offcanvas-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .offcanvas-body {
+            padding: 20px;
+        }
+
+        .mobile-nav {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .mobile-nav li {
+            margin-bottom: 10px;
+        }
+
+        .mobile-nav a {
+            color: var(--white);
+            text-decoration: none;
+            display: block;
+            padding: 12px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .mobile-nav a:hover {
+            background-color: var(--dark-red);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: row;
+                gap: 15px;
+            }
+
+            .desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            /* Adjust auth buttons for mobile */
+            .auth-buttons {
+                gap: 10px;
+            }
+
+            .auth-buttons .btn {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 20px;
+            }
+
+            .auth-buttons .btn {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
         }
         
         /* Main Content */
@@ -486,7 +581,9 @@
                     <i class="fas fa-tint"></i>
                     <h1>BloodBond</h1>
                 </div>
-                <nav>
+
+                <!-- Desktop Navigation -->
+                <nav class="desktop-nav">
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="eligibility.html">Eligibility</a></li>
@@ -500,9 +597,38 @@
                     <a href="login.html" class="btn btn-login">Login</a>
                     <a href="register.html" class="btn btn-register">Register</a>
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
+                    aria-controls="offcanvasMenu">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </header>
+
+     <!-- Offcanvas Menu for Mobile (Only navigation links) -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+    <div class="offcanvas-header">
+      <div class="offcanvas-title" id="offcanvasMenuLabel">
+        <i class="fas fa-tint"></i>
+        <h5 class="mb-0">BloodBond</h5>
+      </div>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="mobile-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="eligibility.html">Eligibility</a></li>
+        <li><a href="find-blood.html">Find Blood</a></li>
+        <li><a href="camps.html">Camps</a></li>
+        <li><a href="credits.html">Credits</a></li>
+        <li><a href="certificate.html">Certificate</a></li>
+      </ul>
+    </div>
+  </div>
+
+    
 
     <!-- Main Content -->
     <div class="container main-content">
